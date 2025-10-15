@@ -65,7 +65,7 @@ export default function SuperCheckout({ funnelData }) {
   };
 
   useEffect(() => {
-    // CORREÇÃO: Popup após 30 segundos (não 15)
+    // Popup do cupom após 20 segundos
     const notificationTimer = setTimeout(() => {
       setShowNotification(true);
       playNotificationSound();
@@ -76,7 +76,7 @@ export default function SuperCheckout({ funnelData }) {
         setShowCouponPopup(true);
         startCouponTimer();
       }, 2000);
-    }, 30000); // ← CORRIGIDO: 30 segundos
+    }, 20000); // ← 20 segundos para mostrar popup de cupom
 
     // Escalate urgency over time
     const urgencyTimer1 = setTimeout(() => setUrgencyLevel(2), 30000); // 30s
@@ -216,23 +216,35 @@ export default function SuperCheckout({ funnelData }) {
           </div>
           
           <div className="border-t border-gray-600 mt-4 pt-4">
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-white font-bold">VALOR TOTAL REAL:</span>
-              <span className="text-gray-400 line-through text-lg">R$ 1.087,00</span>
+            <div className="flex justify-between items-center mb-3">
+              <span className="text-gray-400 text-sm">VALOR TOTAL REAL:</span>
+              <span className="text-gray-400 line-through text-base">R$ 1.087,00</span>
             </div>
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-white font-bold">PREÇO SEM DESCONTO:</span>
+            <div className="flex justify-between items-center mb-4">
+              <span className="text-white font-bold text-base">PREÇO SEM DESCONTO:</span>
               <span className="text-yellow-400 text-xl font-bold">R$ 397,00</span>
             </div>
-            <div className="bg-green-600/20 rounded-xl p-3 border border-green-500/50">
-              <div className="flex justify-between items-center">
-                <span className="text-white font-black">HOJE COM NEUROHACK50:</span>
-                <span className="text-green-400 text-2xl font-black">R$ 198,50</span>
+            
+            {couponApplied ? (
+              <div className="bg-green-600/20 rounded-xl p-4 border border-green-500/50">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-white font-black text-base">HOJE COM NEUROHACK50:</span>
+                  <span className="text-green-400 text-3xl font-black">R$ 198,50</span>
+                </div>
+                <p className="text-green-200 text-xs text-center">
+                  💰 Você economiza <strong>R$ 198,50</strong> (50% OFF) • Apenas nesta página!
+                </p>
               </div>
-              <p className="text-green-200 text-xs mt-2 text-center">
-                💰 Você economiza <strong>R$ 888,50</strong> (82% OFF) • Apenas nesta página!
-              </p>
-            </div>
+            ) : (
+              <div className="bg-yellow-600/20 rounded-xl p-4 border border-yellow-500/50 text-center">
+                <p className="text-yellow-400 font-bold text-sm mb-1">
+                  🎁 AGUARDANDO CUPOM DE 50% OFF
+                </p>
+                <p className="text-gray-300 text-xs">
+                  Cupom especial será liberado em alguns segundos...
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
