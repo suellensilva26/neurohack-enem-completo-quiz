@@ -4,7 +4,16 @@
   "installCommand": "npm install",
   "outputDirectory": "dist",
   "framework": null,
+  "functions": {
+    "apps/funil/src/pages/api/**/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
   "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/vendas/api/$1"
+    },
     {
       "src": "/vendas/(.*)",
       "dest": "/vendas/$1"
