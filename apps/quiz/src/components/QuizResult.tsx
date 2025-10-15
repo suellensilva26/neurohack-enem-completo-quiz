@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { UserProfile } from '@/store/quizStore';
 
@@ -8,21 +7,6 @@ interface QuizResultProps {
 }
 
 const QuizResult = ({ profile, onRestart }: QuizResultProps) => {
-  const [timeLeft, setTimeLeft] = useState({ hours: 23, minutes: 47, seconds: 32 });
-  
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };
-        if (prev.minutes > 0) return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
-        if (prev.hours > 0) return { hours: prev.hours - 1, minutes: 59, seconds: 59 };
-        return prev;
-      });
-    }, 1000);
-    
-    return () => clearInterval(timer);
-  }, []);
-  
   return (
     <div className="min-h-screen bg-gradient-dark px-4 py-6">
       <div className="max-w-sm mx-auto space-y-6">
@@ -100,58 +84,56 @@ const QuizResult = ({ profile, onRestart }: QuizResultProps) => {
           </div>
         </div>
         
-        {/* Urgência + Timer */}
-        <div className="bg-gradient-to-r from-red-900/30 to-yellow-900/30 rounded-3xl p-4 border border-red-600/50">
-          <div className="text-center space-y-3">
-            <h4 className="text-red-400 font-bold">⏰ TEMPO ESGOTANDO:</h4>
-            <div className="flex justify-center space-x-2 text-foreground font-bold text-lg">
-              <div className="bg-red-600 px-3 py-1 rounded">{String(timeLeft.hours).padStart(2, '0')}</div>
-              <span>:</span>
-              <div className="bg-red-600 px-3 py-1 rounded">{String(timeLeft.minutes).padStart(2, '0')}</div>
-              <span>:</span>
-              <div className="bg-red-600 px-3 py-1 rounded">{String(timeLeft.seconds).padStart(2, '0')}</div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Oferta Final */}
+        {/* Call to Action - Descobrir Solução */}
         <div className="space-y-4">
-          <div className="text-center space-y-2">
-            <div className="text-muted-foreground line-through text-lg">De R$ 497,00</div>
-            <div className="text-yellow-400 text-4xl font-black">R$ 197,00</div>
-            <div className="text-foreground/70">ou 12x de R$ 19,70</div>
+          <div className="bg-gradient-to-br from-purple-900/30 to-blue-900/30 rounded-3xl p-6 border border-purple-600/50 text-center space-y-3">
+            <h4 className="text-purple-400 font-bold text-lg">
+              🎯 Quer saber EXATAMENTE como reverter isso?
+            </h4>
+            <p className="text-foreground/80 text-sm">
+              Responda mais algumas perguntas e descubra a solução personalizada 
+              baseada em neurociência para multiplicar seu potencial de aprovação.
+            </p>
           </div>
           
           <motion.button 
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => window.location.href = '/vendas'}
-            className="w-full h-16 bg-gradient-to-r from-green-500 to-green-600 text-black text-lg font-black rounded-2xl shadow-[0_0_30px_hsl(var(--status-success))] relative overflow-hidden"
+            className="w-full h-16 bg-gradient-to-r from-green-500 to-green-600 text-black text-lg font-black rounded-2xl shadow-[0_0_30px_rgba(34,197,94,0.5)] relative overflow-hidden"
           >
             <span className="relative z-10">
-              🧠 HACKEAR MEU CÉREBRO AGORA!
+              🧬 DESCOBRIR MINHA SOLUÇÃO PERSONALIZADA
             </span>
           </motion.button>
           
           <div className="text-center">
             <p className="text-xs text-muted-foreground">
-              🛡️ Garantia incondicional de 7 dias
-              <br />
-              ⚡ Acesso imediato • 🔒 Pagamento seguro
+              ⚡ 100% Gratuito • 🔒 Dados protegidos • 🎯 Resultado instantâneo
             </p>
           </div>
         </div>
         
-        {/* Prova Social Final */}
+        {/* Urgência ENEM */}
+        <div className="bg-gradient-to-r from-red-900/30 to-yellow-900/30 rounded-3xl p-4 border border-red-600/50">
+          <div className="text-center space-y-2">
+            <h4 className="text-red-400 font-bold text-sm">⏰ ATENÇÃO: Faltam apenas 47 dias para o ENEM!</h4>
+            <p className="text-foreground/70 text-xs">
+              Cada dia perdido reduz suas chances de aprovação. Descubra agora como otimizar seu cérebro!
+            </p>
+          </div>
+        </div>
+        
+        {/* Prova Social */}
         <div className="text-center space-y-2">
           <p className="text-sm text-green-400 font-bold">
-            👥 +3.247 cérebros já foram hackeados hoje!
+            👥 +3.247 estudantes já descobriram sua solução hoje!
           </p>
           <div className="flex justify-center gap-1">
             {[1,2,3,4,5].map(i => (
               <span key={i} className="text-yellow-400 text-lg">⭐</span>
             ))}
-            <span className="text-xs text-muted-foreground ml-2">4.9/5 • +10.847 transformações</span>
+            <span className="text-xs text-muted-foreground ml-2">4.9/5 • +10.847 aprovados</span>
           </div>
         </div>
         
