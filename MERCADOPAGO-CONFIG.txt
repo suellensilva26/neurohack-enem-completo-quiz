@@ -1,0 +1,56 @@
+# 🔑 CONFIGURAÇÃO MERCADO PAGO - NEUROHACK ENEM
+# Copie este conteúdo para o arquivo .env.local na pasta apps/funil/
+
+# ===========================================
+# CREDENCIAIS MERCADO PAGO
+# ===========================================
+
+# Chave pública (frontend)
+NEXT_PUBLIC_MP_PUBLIC_KEY=APP_USR-ffdc65d6-cea9-45b3-b6ad-3024fd36a896
+
+# Token de acesso (backend)
+MP_ACCESS_TOKEN=APP_USR-7689299563100038-071019-3ca7375225a53590c7e12206503cfe4d-2547567185
+
+# Client ID e Secret
+MP_CLIENT_ID=7689299563100038
+MP_CLIENT_SECRET=TqMjTQGmRjUedPdK6DvRVL9PoVKjqTpd
+
+# Webhook secret (gerado automaticamente)
+MP_WEBHOOK_SECRET=neurohack_webhook_2025_secure_key
+
+# URL do site
+NEXT_PUBLIC_SITE_URL=https://neurohackenem.com
+
+# Ambiente
+NODE_ENV=production
+
+# ===========================================
+# INSTRUÇÕES DE CONFIGURAÇÃO
+# ===========================================
+
+1. Crie o arquivo: apps/funil/.env.local
+2. Cole todo o conteúdo acima (sem os comentários de instrução)
+3. Faça o build: npm run build
+4. Configure o webhook no painel do Mercado Pago
+
+# ===========================================
+# CONFIGURAÇÃO DO WEBHOOK
+# ===========================================
+
+URL do Webhook: https://neurohackenem.com/api/webhook-mercadopago
+Eventos: payment
+Método: POST
+
+# ===========================================
+# TESTE DE FUNCIONAMENTO
+# ===========================================
+
+1. Acesse: http://localhost:8000/vendas/
+2. Navegue até o checkout
+3. Preencha o nome
+4. Clique em "FINALIZAR COMPRA"
+5. Teste os métodos de pagamento
+
+# ===========================================
+# STATUS: PRONTO PARA PRODUÇÃO! 🚀
+# ===========================================

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getENEMCountdown } from '../utils/enemCountdown';
+import PaymentScreen from './payment/PaymentScreen';
 
 export default function SuperCheckout({ funnelData }) {
   const [urgencyLevel, setUrgencyLevel] = useState(1);
@@ -14,6 +15,7 @@ export default function SuperCheckout({ funnelData }) {
     name: '',
     email: ''
   });
+  const [showPaymentScreen, setShowPaymentScreen] = useState(false);
 
   const { days, urgency, color } = getENEMCountdown();
 
@@ -323,7 +325,16 @@ export default function SuperCheckout({ funnelData }) {
               hover: { scale: 1.05, transition: { type: 'spring', stiffness: 250, damping: 18 } },
               tap: { scale: 0.98, transition: { type: 'spring', stiffness: 250, damping: 18 } }
             }}
-            onClick={() => alert('Compra finalizada! Redirecionando para pagamento...')}
+            onClick={() => {
+              // Validar dados básicos
+              if (!formData.name.trim()) {
+                alert('Por favor, preencha seu nome antes de continuar.');
+                return;
+              }
+              
+              // Mostrar tela de pagamento
+              setShowPaymentScreen(true);
+            }}
           >
             <span className="relative z-10 text-base">
               💳 FINALIZAR COMPRA - R$ {finalPrice.toFixed(2).replace('.', ',')}
@@ -435,6 +446,28 @@ export default function SuperCheckout({ funnelData }) {
                 </p>
               </div>
             </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Tela de Pagamento */}
+      <AnimatePresence>
+        {showPaymentScreen && (
+          <motion.div
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm overflow-y-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <div className="relative w-full min-h-full">
+              <button
+                onClick={() => setShowPaymentScreen(false)}
+                className="fixed top-4 right-4 z-10 w-10 h-10 bg-gray-800 text-white rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors"
+              >
+                ✕
+              </button>
+              <PaymentScreen initialName={formData.name} />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
