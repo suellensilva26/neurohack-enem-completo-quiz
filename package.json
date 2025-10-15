@@ -1,0 +1,27 @@
+{
+  "name": "neurohack-enem-completo",
+  "version": "1.0.0",
+  "description": "Monorepo unindo Quiz Diagnóstico + Funil de Vendas NeuroHack ENEM",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:quiz": "cd apps/quiz && npm run dev",
+    "dev:funil": "cd apps/funil && npm run dev -- --port 3001",
+    "dev": "concurrently \"npm run dev:quiz\" \"npm run dev:funil\"",
+    "build:quiz": "cd apps/quiz && npm run build",
+    "build:funil": "cd apps/funil && npm run build",
+    "build": "npm run build:quiz && npm run build:funil && node scripts/merge-builds.js",
+    "preview": "cd dist && python3 -m http.server 8000",
+    "install-all": "npm install && cd apps/quiz && npm install && cd ../funil && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "fs-extra": "^11.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+

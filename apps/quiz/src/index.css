@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Premium Black/Gold Design System */
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Gold Primary */
+    --primary: 51 100% 50%;
+    --primary-foreground: 0 0% 4%;
+    --primary-glow: 51 100% 70%;
+    --primary-accent: 43 74% 43%;
+
+    /* Dark Surfaces */
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 0 0% 15%;
+    --accent-foreground: 51 100% 50%;
+
+    /* Status Colors */
+    --destructive: 4 90% 58%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --warning: 36 100% 50%;
+    --warning-foreground: 0 0% 4%;
+    
+    --success: 142 76% 48%;
+    --success-foreground: 0 0% 98%;
+    
+    --info: 211 100% 50%;
+    --info-foreground: 0 0% 98%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 51 100% 50%;
+
+    --radius: 1rem;
+
+    /* Neon Effects */
+    --shadow-gold-neon: 0 0 20px hsl(51 100% 50%), 0 0 40px hsl(51 100% 50%);
+    --shadow-gold-soft: 0 8px 32px hsl(51 100% 50% / 0.2);
+    --gradient-gold: linear-gradient(135deg, hsl(51 100% 50%), hsl(51 100% 70%));
+    --gradient-dark: linear-gradient(135deg, hsl(0 0% 4%), hsl(0 0% 10%));
+  }
+}
+
+@layer utilities {
+  .bg-gradient-dark {
+    background: linear-gradient(135deg, hsl(0 0% 4%) 0%, hsl(0 0% 0%) 50%, hsl(0 0% 4%) 100%);
+  }
+  
+  .bg-gradient-gold {
+    background: linear-gradient(135deg, hsl(51 100% 50%) 0%, hsl(51 100% 70%) 100%);
+  }
+  
+  .shadow-gold-neon {
+    box-shadow: 0 0 30px hsl(51 100% 50% / 0.6);
+  }
+  
+  .drop-shadow-neon {
+    filter: drop-shadow(0 0 10px hsl(51 100% 50%));
+  }
+  
+  .option-critical {
+    @apply w-full p-4 rounded-2xl bg-red-900/20 border-2 border-red-600/50 text-foreground hover:bg-red-800/30 hover:border-red-500 transform hover:scale-105 transition-all;
+  }
+  
+  .option-warning {
+    @apply w-full p-4 rounded-2xl bg-orange-900/20 border-2 border-orange-600/50 text-foreground hover:bg-orange-800/30 hover:border-orange-500 transform hover:scale-105 transition-all;
+  }
+  
+  .option-success {
+    @apply w-full p-4 rounded-2xl bg-green-900/20 border-2 border-green-600/50 text-foreground hover:bg-green-800/30 hover:border-green-500 transform hover:scale-105 transition-all;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
