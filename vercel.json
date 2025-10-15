@@ -1,15 +1,13 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "routes": [
+  "buildCommand": "cd apps/funil && npm install && npm run build",
+  "outputDirectory": "apps/funil/dist",
+  "installCommand": "cd apps/funil && npm install",
+  "framework": "vite",
+  "rewrites": [
     {
-      "src": "/vendas/(.*)",
-      "dest": "/vendas/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
