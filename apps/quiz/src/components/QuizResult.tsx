@@ -110,7 +110,7 @@ const QuizResult = ({ profile, onRestart }: QuizResultProps) => {
           <motion.button 
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => window.location.href = '/vendas'}
+            onClick={() => window.location.href = 'https://neurohackenem-funil.vercel.app'}
             className="w-full h-16 bg-gradient-to-r from-green-500 to-green-600 text-black text-lg font-black rounded-2xl shadow-[0_0_30px_rgba(34,197,94,0.5)] relative overflow-hidden"
           >
             <span className="relative z-10">
