@@ -7,6 +7,17 @@ interface QuizResultProps {
 }
 
 const QuizResult = ({ profile, onRestart }: QuizResultProps) => {
+  // Calcular dias restantes até o ENEM (9 de novembro de 2025)
+  const calcularDiasRestantes = () => {
+    const dataEnem = new Date('2025-11-09T00:00:00');
+    const hoje = new Date();
+    const diffTime = dataEnem.getTime() - hoje.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays > 0 ? diffDays : 0;
+  };
+
+  const diasRestantes = calcularDiasRestantes();
+
   return (
     <div className="min-h-screen bg-gradient-dark px-4 py-6">
       <div className="max-w-sm mx-auto space-y-6">
@@ -117,7 +128,9 @@ const QuizResult = ({ profile, onRestart }: QuizResultProps) => {
         {/* Urgência ENEM */}
         <div className="bg-gradient-to-r from-red-900/30 to-yellow-900/30 rounded-3xl p-4 border border-red-600/50">
           <div className="text-center space-y-2">
-            <h4 className="text-red-400 font-bold text-sm">⏰ ATENÇÃO: Faltam apenas 47 dias para o ENEM!</h4>
+            <h4 className="text-red-400 font-bold text-sm">
+              ⏰ ATENÇÃO: Faltam apenas <span className="text-yellow-400">{diasRestantes} dias</span> para o ENEM!
+            </h4>
             <p className="text-foreground/70 text-xs">
               Cada dia perdido reduz suas chances de aprovação. Descubra agora como otimizar seu cérebro!
             </p>
