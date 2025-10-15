@@ -1,14 +1,9 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "outputDirectory": "dist",
+  "framework": null,
   "routes": [
     {
       "src": "/vendas/(.*)",
@@ -18,11 +13,5 @@
       "src": "/(.*)",
       "dest": "/$1"
     }
-  ],
-  "env": {
-    "NEXT_PUBLIC_MP_PUBLIC_KEY": "APP_USR-ffdc65d6-cea9-45b3-b6ad-3024fd36a896",
-    "MP_ACCESS_TOKEN": "APP_USR-7689299563100038-071019-3ca7375225a53590c7e12206503cfe4d-2547567185",
-    "MP_WEBHOOK_SECRET": "TqMjTQGmRjUedPdK6DvRVL9PoVKjqTpd",
-    "NEXT_PUBLIC_SITE_URL": "https://neurohackenem.com"
-  }
+  ]
 }
