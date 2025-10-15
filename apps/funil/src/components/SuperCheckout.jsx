@@ -227,21 +227,21 @@ export default function SuperCheckout({ funnelData }) {
             
             {couponApplied ? (
               <div className="bg-green-600/20 rounded-xl p-4 border border-green-500/50">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-white font-black text-base">HOJE COM NEUROHACK50:</span>
-                  <span className="text-green-400 text-3xl font-black">R$ 198,50</span>
+                <div className="text-center mb-2">
+                  <p className="text-green-300 text-xs mb-1">HOJE COM NEUROHACK50:</p>
+                  <p className="text-green-400 text-4xl font-black">R$ 198,50</p>
                 </div>
                 <p className="text-green-200 text-xs text-center">
-                  💰 Você economiza <strong>R$ 198,50</strong> (50% OFF) • Apenas nesta página!
+                  💰 Você economiza <strong>R$ 198,50</strong> (50% OFF)
                 </p>
               </div>
             ) : (
-              <div className="bg-yellow-600/20 rounded-xl p-4 border border-yellow-500/50 text-center">
-                <p className="text-yellow-400 font-bold text-sm mb-1">
+              <div className="bg-yellow-600/20 rounded-xl p-3 border border-yellow-500/50 text-center">
+                <p className="text-yellow-400 font-bold text-xs mb-1">
                   🎁 AGUARDANDO CUPOM DE 50% OFF
                 </p>
                 <p className="text-gray-300 text-xs">
-                  Cupom especial será liberado em alguns segundos...
+                  Será liberado em alguns segundos...
                 </p>
               </div>
             )}
@@ -249,43 +249,43 @@ export default function SuperCheckout({ funnelData }) {
         </div>
 
         {/* Checkout Form - Campo cupom sempre habilitado */}
-        <div className="bg-gray-800/50 rounded-2xl p-6 border border-gray-700 space-y-4">
-          <h3 className="text-center text-white font-bold text-lg">
+        <div className="bg-gray-800/50 rounded-2xl p-5 border border-gray-700 space-y-3">
+          <h3 className="text-center text-white font-bold text-base">
             🚀 GARANTIR MINHA TRANSFORMAÇÃO
           </h3>
           
           {/* Name Field */}
           <div>
-            <label className="block text-gray-400 text-sm mb-2">👤 Nome completo:</label>
+            <label className="block text-gray-400 text-xs mb-2">👤 Nome completo:</label>
             <input
               type="text"
               placeholder="Seu nome completo"
               value={formData.name}
               onChange={(e) => setFormData({...formData, name: e.target.value})}
-              className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+              className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
               required
             />
           </div>
           
           {/* Coupon Field - SEMPRE habilitado para entrada manual */}
           <div>
-            <label className="block text-gray-400 text-sm mb-2">🎫 Cupom de desconto:</label>
+            <label className="block text-gray-400 text-xs mb-2">🎫 Cupom de desconto:</label>
             <div className="flex gap-2">
               <input
                 type="text"
                 value={couponCode}
                 onChange={e => setCouponCode(e.target.value.toUpperCase())}
-                placeholder="Digite: NEUROHACK50"
+                placeholder="NEUROHACK50"
                 disabled={couponApplied}
-                className={`flex-1 px-4 py-3 bg-gray-800 border ${couponApplied ? 'opacity-60 cursor-not-allowed border-gray-700' : 'border-gray-600'} rounded-xl text-white focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all`}
+                className={`flex-1 px-4 py-3 bg-gray-800 border ${couponApplied ? 'opacity-60 cursor-not-allowed border-gray-700' : 'border-gray-600'} rounded-xl text-white text-sm focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all`}
               />
               <button
                 onClick={applyCoupon}
                 disabled={couponApplied}
                 aria-disabled={couponApplied}
-                className={`px-6 py-3 ${couponApplied ? 'bg-gray-600 cursor-not-allowed' : 'bg-yellow-600 hover:scale-105'} text-white font-bold rounded-xl transition-transform`}
+                className={`px-5 py-3 ${couponApplied ? 'bg-gray-600 cursor-not-allowed' : 'bg-yellow-600 hover:scale-105'} text-white font-bold rounded-xl transition-transform text-sm`}
               >
-                {couponApplied ? 'APLICADO' : 'APLICAR'}
+                {couponApplied ? '✓' : 'APLICAR'}
               </button>
             </div>
           </div>
@@ -298,15 +298,15 @@ export default function SuperCheckout({ funnelData }) {
               animate={{ opacity: 1, scale: 1 }}
             >
               <div className="text-center">
-                <p className="text-green-400 font-bold">🎉 CUPOM APLICADO COM SUCESSO!</p>
-                <p className="text-white text-sm">Você economizou R$ 198,50</p>
+                <p className="text-green-400 font-bold text-sm">🎉 CUPOM APLICADO COM SUCESSO!</p>
+                <p className="text-green-300 text-xs">Você economizou R$ 198,50</p>
               </div>
             </motion.div>
           )}
 
           {/* Final CTA Button */}
           <motion.button
-            className="w-full h-14 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 text-black text-sm font-black rounded-2xl shadow-[0_0_50px_rgba(34,197,94,0.8)] relative overflow-hidden"
+            className="w-full h-16 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 text-black font-black rounded-2xl shadow-[0_0_50px_rgba(34,197,94,0.8)] relative overflow-hidden"
             animate={{ 
               boxShadow: [
                 "0 0 50px rgba(34,197,94,0.8)",
@@ -325,17 +325,17 @@ export default function SuperCheckout({ funnelData }) {
             }}
             onClick={() => alert('Compra finalizada! Redirecionando para pagamento...')}
           >
-            <span className="relative z-10">
-              💳 FINALIZAR COMPRA - R$ {finalPrice.toFixed(2)}
+            <span className="relative z-10 text-base">
+              💳 FINALIZAR COMPRA - R$ {finalPrice.toFixed(2).replace('.', ',')}
             </span>
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-12 animate-shimmer" />
           </motion.button>
 
           {/* Security badges */}
-          <div className="flex justify-center items-center space-x-4 text-xs text-gray-400">
-            <span>🔒 Pagamento Seguro</span>
-            <span>🛡️ SSL Certificado</span>
-            <span>✅ Garantia 30 dias</span>
+          <div className="flex justify-center items-center gap-3 text-xs text-gray-400">
+            <span className="flex items-center gap-1">🔒 Pagamento Seguro</span>
+            <span className="flex items-center gap-1">🛡️ SSL</span>
+            <span className="flex items-center gap-1">✅ Garantia 30d</span>
           </div>
         </div>
 
