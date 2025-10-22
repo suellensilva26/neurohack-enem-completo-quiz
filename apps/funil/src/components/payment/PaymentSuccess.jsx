@@ -1,131 +1,114 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-export default function PaymentSuccess({ onAccessQuiz }) {
+export default function PaymentSuccess() {
+  const [searchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(true);
+  const sessionId = searchParams.get('session_id');
+
   useEffect(() => {
-    // Simular envio de email de boas-vindas
-    console.log('📧 Enviando email de boas-vindas...');
-    
-    // Simular liberação de acesso
-    console.log('🔓 Liberando acesso ao produto...');
-  }, []);
+    if (!sessionId) {
+      setIsLoading(false);
+      return;
+    }
+
+    // ═════════════════════════════════════════════════════════
+    // OPCIONAL: Fazer verificação do pagamento no backend
+    // ═════════════════════════════════════════════════════════
+
+    const verifyPayment = async () => {
+      try {
+        const response = await fetch(
+          `/api/verify-payment?session_id=${sessionId}`
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log('[Success] Payment verified:', data);
+        }
+      } catch (error) {
+        console.error('[Success] Verification error:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    verifyPayment();
+  }, [sessionId]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center px-4">
+        <motion.div 
+          className="bg-gray-800 rounded-xl p-8 border border-gray-700 text-center max-w-md w-full"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="animate-spin text-4xl mb-4">⏳</div>
+          <p className="text-white">Processando seu pagamento...</p>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
-    <motion.div 
-      className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 px-4 py-6 flex items-center justify-center"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="max-w-md mx-auto text-center space-y-8">
-        
-        {/* Ícone de Sucesso */}
-        <motion.div
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center px-4">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="bg-gray-800 rounded-2xl p-8 w-full max-w-md border border-gray-700 text-center"
+      >
+        <motion.div 
+          className="text-6xl mb-6"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
         >
-          <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
-            <span className="text-4xl">✅</span>
-          </div>
+          ✅
         </motion.div>
-
-        {/* Título */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-        >
-          <h1 className="text-3xl font-bold text-white mb-4">
-            🎉 Pagamento Aprovado!
-          </h1>
-          <p className="text-gray-400 text-lg">
-            Bem-vindo ao <span className="text-yellow-400 font-bold">NeuroHack ENEM 2025</span>
-          </p>
-        </motion.div>
-
-        {/* Detalhes do Acesso */}
-        <motion.div
-          className="bg-gradient-to-r from-green-900/30 to-blue-900/30 rounded-xl p-6 border border-green-500/50 space-y-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-        >
-          <h2 className="text-green-400 font-bold text-xl">
-            🧠 Seu Acesso Foi Liberado!
-          </h2>
-          
-          <div className="space-y-3 text-left">
-            <div className="flex items-center space-x-3">
-              <span className="text-green-400">✅</span>
-              <span className="text-white text-sm">Quiz Diagnóstico Personalizado</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <span className="text-green-400">✅</span>
-              <span className="text-white text-sm">Sistema de Estudos Otimizado</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <span className="text-green-400">✅</span>
-              <span className="text-white text-sm">Técnicas de Memorização</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <span className="text-green-400">✅</span>
-              <span className="text-white text-sm">Acesso Vitalício</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <span className="text-green-400">✅</span>
-              <span className="text-white text-sm">Suporte Especializado</span>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Próximos Passos */}
-        <motion.div
-          className="bg-blue-900/20 rounded-xl p-6 border border-blue-500/50"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-        >
-          <h3 className="text-blue-400 font-bold text-lg mb-4">
-            🚀 Próximos Passos:
+        
+        <h1 className="text-2xl font-bold text-white mb-4">
+          Pagamento Confirmado!
+        </h1>
+        <p className="text-gray-400 mb-6">
+          Obrigado por sua compra. Seu acesso premium foi ativado.
+        </p>
+        
+        <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 rounded-xl p-4 border border-blue-500/50 mb-6">
+          <h3 className="text-blue-400 font-bold text-sm mb-2">
+            🎉 Próximos passos:
           </h3>
-          
-          <div className="space-y-3 text-left text-gray-300 text-sm">
-            <p>1. 📧 Verifique seu email com as instruções</p>
-            <p>2. 🧠 Faça o quiz diagnóstico personalizado</p>
-            <p>3. 📚 Receba seu plano de estudos otimizado</p>
-            <p>4. 🎯 Comece sua jornada para a aprovação</p>
+          <ul className="text-gray-300 text-xs text-left space-y-1">
+            <li>✓ Acesso total ao app NeuroHack desbloqueado</li>
+            <li>✓ Todos os simulados disponíveis</li>
+            <li>✓ Conteúdo premium liberado</li>
+            <li>✓ Suporte prioritário ativado</li>
+          </ul>
+        </div>
+
+        <div className="space-y-3">
+          <a 
+            href="/quiz" 
+            className="block w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors"
+          >
+            🚀 Acessar Quiz
+          </a>
+          <a 
+            href="/" 
+            className="block w-full bg-gray-600 text-white py-3 rounded-lg font-bold hover:bg-gray-700 transition-colors"
+          >
+            🏠 Voltar ao Início
+          </a>
+        </div>
+
+        {sessionId && (
+          <div className="mt-4 text-xs text-gray-500">
+            ID da Sessão: {sessionId.substring(0, 20)}...
           </div>
-        </motion.div>
-
-        {/* Botão de Acesso */}
-        <motion.button
-          onClick={onAccessQuiz}
-          className="w-full py-4 bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white font-bold text-lg rounded-xl transition-all hover:scale-105 shadow-lg"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.0 }}
-        >
-          🧬 ACESSAR MEU QUIZ PERSONALIZADO
-        </motion.button>
-
-        {/* Informações Adicionais */}
-        <motion.div
-          className="text-center space-y-2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-        >
-          <p className="text-gray-400 text-xs">
-            💌 Um email de confirmação foi enviado para você
-          </p>
-          <p className="text-gray-400 text-xs">
-            🆘 Precisa de ajuda? Entre em contato conosco
-          </p>
-        </motion.div>
-      </div>
-    </motion.div>
+        )}
+      </motion.div>
+    </div>
   );
 }

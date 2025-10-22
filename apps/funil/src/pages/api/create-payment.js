@@ -1,4 +1,6 @@
 import MP from '../../lib/mercadopago';
+import paymentDB from '../../lib/database';
+import notificationSystem from '../../lib/notifications';
 
 export default async function handler(req, res) {
   // Configurar CORS
@@ -111,7 +113,7 @@ export default async function handler(req, res) {
 
     const result = await MP.preferences.create(preference);
 
-    // Salvar dados do pagamento (simulado - em produção usar banco de dados)
+    // Salvar dados do pagamento no banco de dados
     const paymentData = {
       id: result.body.id,
       external_reference: preference.external_reference,
@@ -119,12 +121,23 @@ export default async function handler(req, res) {
       amount,
       installments,
       customer,
+      items,
       status: 'pending',
-      created_at: new Date().toISOString()
+      created_at: new Date().toISOString(),
+      metadata: {
+        ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+        user_agent: req.headers['user-agent'],
+        source: 'website'
+      }
     };
 
-    // Em produção, salvar no banco de dados
-    console.log('Payment created:', paymentData);
+    // Salvar no banco de dados
+    const savedPayment = await paymentDB.createPayment(paymentData);
+    
+    // Criar ou atualizar cliente
+    await paymentDB.createCustomer(customer);
+    
+    console.log('💾 Payment saved to database:', savedPayment);
 
     // Retornar dados para o frontend
     res.status(200).json({

@@ -39,54 +39,81 @@ function PaymentScreen({ initialName = '' }) {
       // Verificar se está em desenvolvimento
       const isDev = window.location.hostname === 'localhost';
       
-      if (isDev) {
-        // Simular pagamento em desenvolvimento
-        console.log('🧪 MODO DESENVOLVIMENTO - Simulando pagamento...');
-        
-        // Simular delay de processamento
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        
-        // Dados simulados
-        const mockPaymentData = {
-          id: 'mock-' + Date.now(),
-          init_point: '#',
-          qr_code: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==',
-          qr_code_base64: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==',
-          external_reference: 'dev-' + Date.now()
+      // Sempre usar API real do Mercado Pago
+      console.log('🚀 Criando pagamento real no Mercado Pago...');
+      
+      const paymentRequest = {
+        method: selectedMethod,
+        amount: finalPrice,
+        installments,
+        customer: formData,
+        items: [{
+          title: 'NeuroHack ENEM 2025',
+          description: 'Sistema completo de aprovação no ENEM com técnicas de neurociência',
+          quantity: 1,
+          unit_price: finalPrice
+        }]
+      };
+
+      // Para desenvolvimento, vamos criar uma preferência real do Mercado Pago
+      const mp = new window.MercadoPago(import.meta.env.VITE_MP_PUBLIC_KEY || 'APP_USR-ffdc65d6-cea9-45b3-b6ad-3024fd36a896');
+      
+      const preference = {
+        items: paymentRequest.items,
+        payer: {
+          name: paymentRequest.customer.name,
+          email: paymentRequest.customer.email,
+          phone: {
+            number: paymentRequest.customer.phone
+          },
+          identification: {
+            type: 'CPF',
+            number: paymentRequest.customer.document
+          }
+        },
+        back_urls: {
+          success: `${window.location.origin}/payment/success`,
+          failure: `${window.location.origin}/payment/failure`,
+          pending: `${window.location.origin}/payment/pending`
+        },
+        auto_return: 'approved',
+        notification_url: `${window.location.origin}/api/webhook-mercadopago`,
+        external_reference: `neurohack-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        expires: true,
+        expiration_date_from: new Date().toISOString(),
+        expiration_date_to: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+      };
+
+      // Configurações específicas por método
+      if (paymentRequest.method === 'pix') {
+        preference.payment_methods = {
+          excluded_payment_methods: [
+            { id: 'visa' }, { id: 'master' }, { id: 'amex' }
+          ],
+          excluded_payment_types: [
+            { id: 'credit_card' }, { id: 'debit_card' }, { id: 'ticket' }
+          ],
+          installments: 1
+        };
+        preference.items[0].unit_price = paymentRequest.amount * 0.95; // 5% desconto PIX
+      }
+
+      const result = await mp.preferences.create(preference);
+      
+      if (result.body) {
+        const paymentData = {
+          id: result.body.id,
+          init_point: result.body.init_point,
+          sandbox_init_point: result.body.sandbox_init_point,
+          qr_code: paymentRequest.method === 'pix' ? result.body.qr_code : null,
+          qr_code_base64: paymentRequest.method === 'pix' ? result.body.qr_code_base64 : null,
+          external_reference: preference.external_reference
         };
         
-        setPaymentData(mockPaymentData);
-        handlePaymentRedirect(mockPaymentData);
-        
+        setPaymentData(paymentData);
+        handlePaymentRedirect(paymentData);
       } else {
-        // Produção - chamada real para API
-        const paymentRequest = {
-          method: selectedMethod,
-          amount: finalPrice,
-          installments,
-          customer: formData,
-          items: [{
-            title: 'NeuroHack ENEM 2025',
-            description: 'Sistema completo de aprovação no ENEM com técnicas de neurociência',
-            quantity: 1,
-            unit_price: finalPrice
-          }]
-        };
-
-        const response = await fetch('/api/create-payment', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(paymentRequest)
-        });
-
-        const result = await response.json();
-        
-        if (result.success) {
-          setPaymentData(result.data);
-          handlePaymentRedirect(result.data);
-        } else {
-          throw new Error(result.error || 'Erro ao processar pagamento');
-        }
+        throw new Error('Erro ao criar preferência no Mercado Pago');
       }
     } catch (error) {
       console.error('Erro no pagamento:', error);
@@ -99,6 +126,7 @@ function PaymentScreen({ initialName = '' }) {
   const handlePaymentRedirect = (data) => {
     switch (selectedMethod) {
       case 'pix':
+        // Opção 1: Mostrar tela PIX personalizada
         setShowPixPayment(true);
         break;
       case 'boleto':
@@ -111,6 +139,19 @@ function PaymentScreen({ initialName = '' }) {
         break;
       default:
         console.error('Método de pagamento não reconhecido');
+    }
+  };
+
+  const handleDirectMercadoPago = (data) => {
+    console.log('🚀 Dados recebidos para redirecionamento:', data);
+    
+    if (data && data.init_point) {
+      console.log('✅ Redirecionando para:', data.init_point);
+      // Forçar redirecionamento
+      window.location.href = data.init_point;
+    } else {
+      console.error('❌ Dados de pagamento inválidos:', data);
+      alert('Erro: Dados de pagamento não disponíveis. Tente novamente.');
     }
   };
 
@@ -134,6 +175,7 @@ function PaymentScreen({ initialName = '' }) {
       <PixPayment 
         pixData={paymentData} 
         onPaymentConfirmed={handlePaymentConfirmed}
+        onDirectMercadoPago={handleDirectMercadoPago}
       />
     );
   }

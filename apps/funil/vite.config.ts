@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   base: process.env.NODE_ENV === 'production' ? '/vendas/' : '/',
   server: {
-    port: 8000,
+    port: 8001,
     open: true,
     host: true
   },
@@ -15,3 +15,4 @@ export default defineConfig({
     minify: 'esbuild'
   }
 })
+

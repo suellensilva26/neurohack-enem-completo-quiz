@@ -93,3 +93,10 @@ export default function InstallmentOptions({ value, onChange, price }) {
     </motion.div>
   );
 }
+
+
+
+
+
+
+

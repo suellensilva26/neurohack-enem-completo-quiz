@@ -46,7 +46,7 @@ export default function PaymentForm({ method, formData, onChange, onSubmit, proc
       newErrors.document = 'CPF é obrigatório';
     } else {
       // Usar validação baseada no ambiente
-      const isDev = process.env.NODE_ENV === 'development' || window.location.hostname === 'localhost';
+      const isDev = import.meta.env.DEV || window.location.hostname === 'localhost';
       const isValidCPF = isDev ? validateCPFDev(formData.document) : validateCPF(formData.document);
       
       if (!isValidCPF) {
