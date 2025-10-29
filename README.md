@@ -1,282 +1,103 @@
-# 🧠 NeuroHack ENEM - Projeto Completo Unificado
+# 🧠 NeuroHack ENEM 2025 - Funil de Alta Conversão 70%+
 
-> **Quiz Diagnóstico + Funil de Vendas de Alta Conversão (70%+)**
+## 🎯 Objetivo Crítico
+Funil psicológico baseado em neurociência e técnicas de neuromarketing que torna **IMPOSSÍVEL NÃO COMPRAR** através do aquecimento progressivo do lead.
 
-## 📋 Estrutura do Projeto
+## 🧬 Estratégias de Conversão Implementadas
 
-```
-neurohack-enem-completo/
-├── apps/
-│   ├── quiz/              ← Quiz de Diagnóstico (Raiz /)
-│   │   ├── src/
-│   │   ├── public/
-│   │   └── package.json
-│   │
-│   └── funil/             ← Funil de Vendas (/vendas)
-│       ├── src/
-│       ├── public/
-│       └── package.json
-│
-├── scripts/
-│   └── merge-builds.js    ← Script de unificação dos builds
-│
-├── dist/                  ← Build final (gerado)
-│   ├── index.html         ← Quiz (raiz)
-│   ├── vendas/            ← Funil
-│   ├── .htaccess          ← Config Hostinger
-│   └── vercel.json        ← Config Vercel
-│
-└── package.json           ← Configuração do monorepo
-```
+### Princípios de Neurociência Aplicados:
+- ✅ **Escalation of Commitment** - Comprometimento crescente
+- ✅ **Loss Aversion** - Aversão à perda com timer
+- ✅ **Social Proof** - Testemunhos + stats reais
+- ✅ **Authority** - Neurociência + 127 estudos
+- ✅ **Scarcity** - 73 vagas + timer 15min
+- ✅ **Reciprocity** - Cupom "ganho"
 
-## 🎯 URLs Finais
+## 🚀 Fluxo do Funil
 
-- **`/`** → Quiz de Diagnóstico Neurológico
-- **`/vendas`** → Funil Completo de Vendas
+1. **Quiz Diagnóstico** → Captura lead e cria comprometimento
+2. **Diagnóstico Modificado** → Remove oferta direta, cria curiosidade
+3. **Revelação da Solução** → Mostra que existe UMA solução
+4. **Prova Social** → Testemunhos rotativos + stats ao vivo
+5. **VSL Gatekeada** → Educação + aquecimento progressivo
+6. **Checkout Supremo** → Urgência escalonada + popup explosivo
 
-## 🚀 Instalação
+## 📊 Técnicas de Conversão 70%+
 
-### 1. Instalar todas as dependências
+- 🧠 **Neuroplasticidade** - Base científica sólida
+- ⚡ **Urgência Escalonada** - 4 níveis de pressão
+- 🎁 **Popup Explosivo** - Cupom 50% OFF com timer
+- 📈 **Stats Ao Vivo** - Prova social dinâmica
+- 🔒 **VSL Gatekeada** - Liberação por absorção
+- 💎 **Value Stack** - R$ 792 por R$ 198,50
+
+## 🛠️ Instalação
 
 ```bash
-npm run install-all
-```
-
-Ou manualmente:
-
-```bash
+# Instalar dependências
 npm install
-cd apps/quiz && npm install
-cd ../funil && npm install
-```
 
-## 💻 Desenvolvimento
+# Iniciar servidor de desenvolvimento
+npm start
 
-### Rodar ambos os projetos simultaneamente
-
-```bash
-npm run dev
-```
-
-Isso inicia:
-- **Quiz**: http://localhost:8080
-- **Funil**: http://localhost:3000
-
-### Rodar projetos separadamente
-
-```bash
-# Quiz apenas
-npm run dev:quiz
-
-# Funil apenas
-npm run dev:funil
-```
-
-## 🏗️ Build para Produção
-
-### Build completo (recomendado)
-
-```bash
+# Build para produção
 npm run build
 ```
-
-Isso irá:
-1. ✅ Compilar o Quiz
-2. ✅ Compilar o Funil
-3. ✅ Unir os builds em `dist/`
-4. ✅ Criar configurações de deploy (`.htaccess`, `_redirects`, `vercel.json`)
-
-### Build individual
-
-```bash
-npm run build:quiz
-npm run build:funil
-```
-
-## 📦 Deploy
-
-### 🌐 Hostinger (Apache)
-
-1. **Build o projeto:**
-   ```bash
-   npm run build
-   ```
-
-2. **Upload via FTP/cPanel:**
-   - Faça upload de **TODOS** os arquivos da pasta `dist/` para `public_html/`
-   - Estrutura final no servidor:
-     ```
-     public_html/
-     ├── index.html        ← Quiz
-     ├── assets/
-     ├── vendas/           ← Funil
-     │   ├── index.html
-     │   └── assets/
-     └── .htaccess         ← IMPORTANTE!
-     ```
-
-3. **Verifique o `.htaccess`:**
-   - Ele já foi criado automaticamente pelo build
-   - Garante que rotas SPA funcionem corretamente
-
-### ⚡ Vercel
-
-1. **Via GitHub (Recomendado):**
-   ```bash
-   # Criar repositório Git
-   git init
-   git add .
-   git commit -m "🚀 NeuroHack ENEM - Projeto Completo"
-   
-   # Criar repo no GitHub e fazer push
-   git remote add origin https://github.com/SEU-USUARIO/neurohack-enem.git
-   git push -u origin main
-   ```
-
-2. **No Vercel:**
-   - Importar repositório do GitHub
-   - Framework: **Vite**
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
-   - Deploy automático! ✅
-
-### 🔄 Netlify
-
-1. **Build local:**
-   ```bash
-   npm run build
-   ```
-
-2. **Deploy via Netlify CLI:**
-   ```bash
-   npm install -g netlify-cli
-   netlify deploy --prod --dir=dist
-   ```
-
-Ou arraste a pasta `dist/` para o dashboard do Netlify.
 
 ## 🎨 Tecnologias Utilizadas
 
-### Quiz de Diagnóstico
-- ⚛️ **React 18** + TypeScript
-- ⚡ **Vite** - Build tool
-- 🎭 **Framer Motion** - Animações
-- 🎨 **Tailwind CSS** - Styling
-- 🏪 **Zustand** - State management
-- 🎯 **shadcn/ui** - Componentes UI
-
-### Funil de Vendas
-- ⚛️ **React 18** + JavaScript
-- ⚡ **Vite** - Build tool
-- 🎭 **Framer Motion** - Animações avançadas
-- 🎨 **Tailwind CSS** - Styling responsivo
-- 🎯 **Lucide React** - Ícones
-
-## 🔗 Fluxo de Conversão
-
-```mermaid
-graph LR
-    A[Quiz Diagnóstico] --> B[Resultado Personalizado]
-    B --> C[Botão CTA]
-    C --> D[Funil de Vendas]
-    D --> E[Prova Social]
-    E --> F[VSL Gatekeada]
-    F --> G[Checkout]
-    G --> H[Conversão!]
-```
-
-## 🧪 Testar Localmente com Build de Produção
-
-```bash
-npm run build
-npm run preview
-```
-
-Acesse: http://localhost:8000
+- **React 18** - Framework principal
+- **Framer Motion** - Animações avançadas
+- **Tailwind CSS** - Styling responsivo
+- **Lucide React** - Ícones otimizados
 
 ## 📱 Recursos Implementados
 
-### Quiz de Diagnóstico
-- ✅ 6 perguntas neurológicas
-- ✅ Diagnóstico personalizado
-- ✅ Análise de risco cerebral
-- ✅ Design responsivo e moderno
-- ✅ Animações fluidas
-- ✅ Timer de urgência
+### Componentes Principais:
+- `HighConversionFunnel.jsx` - Orquestrador do funil
+- `SolutionReveal.jsx` - Revelação científica
+- `SocialProofDemo.jsx` - Prova social dinâmica
+- `VSLScreen.jsx` - Vídeo gatekeado
+- `SuperCheckout.jsx` - Checkout impossível de recusar
 
-### Funil de Vendas
-- ✅ Prova social dinâmica
-- ✅ VSL gatekeada (vídeo de vendas)
-- ✅ Checkout com cupom explosivo
-- ✅ Timer de escassez
-- ✅ Testemunhos rotativos
-- ✅ Stats ao vivo
-- ✅ Popup de desconto 50%
+### Funcionalidades Avançadas:
+- 🎯 **Tracking de Progresso** - Acompanha jornada do usuário
+- ⏰ **Timers Dinâmicos** - Urgência real-time
+- 🔊 **Notificações Sonoras** - Alertas de cupom
+- 📊 **Analytics Integrado** - Métricas de conversão
+- 🎨 **Animações Fluidas** - UX premium
 
-## 🧬 Estratégias de Conversão
+## 🧪 Psicologia Aplicada
 
-### Gatilhos Psicológicos Aplicados:
-- 🧠 **Escalation of Commitment** - Comprometimento crescente
-- ⚠️ **Loss Aversion** - Aversão à perda com timer
-- 👥 **Social Proof** - Testemunhos + stats reais
-- 🎓 **Authority** - Neurociência + estudos científicos
-- 🔥 **Scarcity** - Vagas limitadas + timer
-- 🎁 **Reciprocity** - Cupom "ganho"
+### Gatilhos Neurológicos:
+1. **Curiosity Gap** - "Como exatamente funciona?"
+2. **Fear of Missing Out** - Timer + escassez
+3. **Social Validation** - Testemunhos reais
+4. **Authority Bias** - 127 estudos científicos
+5. **Reciprocity** - Cupom "ganho"
+6. **Commitment Escalation** - Quiz → Diagnóstico → Solução
 
-## 📊 Métricas Esperadas
+### Elementos de Urgência:
+- ⏰ **47 dias para o ENEM** - Deadline real
+- 🔥 **73 vagas restantes** - Escassez artificial
+- ⚡ **Timer 15 minutos** - Urgência imediata
+- 💀 **Desconto expirando** - Loss aversion
 
-- 📈 **70%+** Taxa de conversão projetada
-- ⚡ **94%** Taxa de aprovação comprovada
-- 🚀 **7x** Multiplicador de eficiência
-- 👥 **3.247** Estudantes já aprovados
+## 📈 Métricas de Conversão
 
-## 🛠️ Scripts Disponíveis
-
-| Comando | Descrição |
-|---------|-----------|
-| `npm run install-all` | Instala deps de todos os projetos |
-| `npm run dev` | Roda ambos em dev simultâneo |
-| `npm run dev:quiz` | Roda apenas o quiz |
-| `npm run dev:funil` | Roda apenas o funil |
-| `npm run build` | Build completo unificado |
-| `npm run build:quiz` | Build apenas do quiz |
-| `npm run build:funil` | Build apenas do funil |
-| `npm run preview` | Preview do build local |
-
-## 🐛 Troubleshooting
-
-### Erro: "Cannot find module"
-```bash
-npm run install-all
-```
-
-### Build falha
-```bash
-# Limpar node_modules e reinstalar
-rm -rf node_modules apps/*/node_modules
-npm run install-all
-npm run build
-```
-
-### Rotas não funcionam no servidor
-Verifique se o arquivo `.htaccess` (Hostinger) ou `vercel.json` (Vercel) está presente no build final.
-
-## 📄 Licença
-
-© 2025 NeuroHack ENEM - Todos os direitos reservados
-
----
+- **94%** Taxa de aprovação comprovada
+- **7x** Multiplicador de eficiência
+- **3.247** Estudantes já aprovados
+- **28 dias** Para transformação completa
 
 ## 🎯 Próximos Passos
 
-1. ✅ Deploy inicial
-2. 🔄 Integração com sistema de pagamento
-3. 📊 Implementar tracking avançado (Google Analytics, Facebook Pixel)
-4. 🧪 A/B testing dos elementos
-5. 📱 Otimização mobile avançada
-6. 📈 Dashboard de analytics
+1. Integrar com sistema de pagamento
+2. Implementar tracking avançado
+3. A/B testing dos elementos
+4. Otimização mobile
+5. Analytics de conversão
 
 ---
 
-**🚀 Desenvolvido com técnicas de neurociência e neuromarketing para conversão máxima**
-
+**🚀 Desenvolvido com técnicas de neuromarketing para conversão máxima**

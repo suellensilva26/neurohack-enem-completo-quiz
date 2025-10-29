@@ -59,3 +59,12 @@ validateCPF(cpf) // Rigoroso
 
 **CPFs válidos = Vendas aprovadas**
 **CPFs inválidos = Fraudes bloqueadas**
+
+
+
+
+
+
+
+
+

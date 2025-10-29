@@ -143,3 +143,12 @@ vercel --prod
 - [ ] Deploy em produção
 
 **🚀 SISTEMA PRONTO PARA RECEBER PAGAMENTOS REAIS!**
+
+
+
+
+
+
+
+
+

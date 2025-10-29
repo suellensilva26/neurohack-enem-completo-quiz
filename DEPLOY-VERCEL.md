@@ -438,3 +438,12 @@ jobs:
 2. Adicionar analytics (Google/Facebook)
 3. Começar a gerar tráfego! 🚀💰
 
+
+
+
+
+
+
+
+
+

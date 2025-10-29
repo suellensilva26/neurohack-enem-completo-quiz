@@ -79,3 +79,12 @@ Acesse o painel do Mercado Pago para:
 ---
 
 **🎉 SISTEMA 100% AUTOMÁTICO CONFIGURADO!**
+
+
+
+
+
+
+
+
+

@@ -77,3 +77,12 @@ NEXT_PUBLIC_SITE_URL=https://neurohackenem.com
 ---
 
 **🎯 Siga estes passos na ordem e seu sistema estará online!**
+
+
+
+
+
+
+
+
+

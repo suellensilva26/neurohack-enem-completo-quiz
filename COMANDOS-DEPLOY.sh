@@ -354,3 +354,12 @@ echo "6. Comece a gerar tráfego!"
 echo ""
 echo "🚀 BORA FATURAR! 💰"
 
+
+
+
+
+
+
+
+
+

@@ -1,13 +1,6 @@
 {
-  "version": 2,
-  "buildCommand": "cd apps/funil && npm install && npm run build",
-  "outputDirectory": "apps/funil/dist",
-  "installCommand": "cd apps/funil && npm install",
-  "framework": "vite",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "devCommand": "npm run dev",
+  "cleanUrls": true
 }

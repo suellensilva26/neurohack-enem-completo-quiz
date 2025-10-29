@@ -27,3 +27,12 @@ O botão "DESCOBRIR MINHA SOLUÇÃO PERSONALIZADA" já aponta para:
 - Build Command: npm run build
 - Output Directory: dist
 - Domain: quiz-neurohackenem.vercel.app
+
+
+
+
+
+
+
+
+
